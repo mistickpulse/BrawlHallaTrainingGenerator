@@ -34,13 +34,17 @@ function foo(bot, user, userID, channelID, message, evt) {
 function ans_help(bot, user, userID, channelID, message, evt) {
     bot.sendMessage({
         to: channelID,
-        message: 'diplay some help in the channel'
+        message: 'Oh you got trouble using me ? Let me explain.\n' +
+            'First of all the prefix to invok me is !ztr\n' +
+            'Here is the command list that you can use :\n\n' +
+            '======================================\n\n' +
+            ' * **!ztr whoami**   \t\t\t\tA quick presentation of me, Zoulou\n' +
+            ' * **!ztr help**       \t\t\t\tOpen this menu\n' +
+            ' * **!ztr traime**   \t\t\t\tIll slide in your dm to build you a personnal training program <3\n'
     });
 }
 
 bot.on('message', function (user, userID, channelID, message, evt) {
-    // Our bot needs to know if it will execute a command
-    // It will listen for messages that will start with `!`
     if (message.substring(0, botPrefix.length) == botPrefix) {
         var args = message.substring(botPrefix.length).split(' ');
         var cmd = args[1];
@@ -57,10 +61,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         }
         switch (cmd) {
             // !ping
-            case 'wtf':
+            case 'whoami':
                 foo(bot, user, userID, channelID, message, evt);
                 break;
             case 'help':
+            default:
+                ans_help(bot, user, userID, channelID, message, evt);
                 break;
             // Just add any case commands if you want to..
         }
