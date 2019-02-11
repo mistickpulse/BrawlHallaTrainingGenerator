@@ -5,7 +5,14 @@
   "main": "bot.js",
   "author": "YOUR-NAME-HERE",
   "dependencies": {
+    "@types/node": "^10.12.24",
     "discord.io": "github:woor/discord.io#gateway_v6",
+    "discord.js": "^11.4.2",
     "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.13.0",
+    "parallel-webpack": "^2.3.0",
+    "webpack": "^4.29.3"
   }
 }
