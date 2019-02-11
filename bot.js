@@ -143,3 +143,4 @@ async function generate_training(message) {
 
 bot.login(process.env.TOKEN);
 
+
