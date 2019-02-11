@@ -132,6 +132,7 @@ async function generate_training(message) {
     weaponOrder.set("Hammer", null);
     weaponOrder.set("Blasters", null);
 
+
     var i = 0;
     for (var [weapName, msg] of weaponOrder) {
         tmp.name = weapName;
