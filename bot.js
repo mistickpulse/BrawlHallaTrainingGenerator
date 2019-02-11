@@ -1,7 +1,8 @@
 const Discord = require("discord.js");
 var logger = require('winston');
-var auth = require('./auth.json');
-var botPrefix = auth.prefix;
+require('dotenv').config();
+
+var botPrefix = process.env.PREFIX;
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -11,9 +12,11 @@ logger.add(new logger.transports.Console, {
 logger.level = 'debug';
 // Initialize Discord Bot
 const bot = new Discord.Client({
-    token: auth.token,
+    token: process.env.TOKEN,
     autorun: true
 });
+
+require('http').createServer().listen(3000);
 
 bot.on('ready', () => {
     logger.info('Connected');
@@ -96,6 +99,10 @@ async function generate_training(message) {
     if (message.channel != message.author.dmChannel) {
         message.channel.send(`Seems like you requested a training ${message.author} check your dm's ma boy 👌`);
     }
+
+    message.author.send("This training generation is still under developpement so you can't have access to it right now :(\n" +
+        "the first realease of this training should be out asap :)");
+    return ;
     var m = await message.author.send("Allright let's build this training plan.\n" +
         "I might need a little help to know your weapon preferences ;)\n" +
         "You can sort the list below in order to get the prefered weapon training consequently\n" +
@@ -125,8 +132,6 @@ async function generate_training(message) {
     weaponOrder.set("Hammer", null);
     weaponOrder.set("Blasters", null);
 
-
-
     var i = 0;
     for (var [weapName, msg] of weaponOrder) {
         tmp.name = weapName;
@@ -136,4 +141,4 @@ async function generate_training(message) {
     }
 }
 
-bot.login(auth.token);
+bot.login(process.env.TOKEN);

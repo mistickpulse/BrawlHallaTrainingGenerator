@@ -3,16 +3,25 @@
   "version": "1.0.0",
   "description": "My own Discord bot",
   "main": "bot.js",
-  "author": "YOUR-NAME-HERE",
+  "author": "SZ * zouz",
   "dependencies": {
-    "@types/node": "^10.12.24",
+    "@types/node": "10.12.24",
     "discord.io": "github:woor/discord.io#gateway_v6",
-    "discord.js": "^11.4.2",
-    "winston": "^3.1.0"
+    "discord.js": "11.4.2",
+    "dotenv": "6.2.0",
+    "winston": "3.1.0"
   },
   "devDependencies": {
-    "eslint": "^5.13.0",
-    "parallel-webpack": "^2.3.0",
-    "webpack": "^4.29.3"
+    "eslint": "5.13.0",
+    "parallel-webpack": "2.3.0",
+    "webpack": "4.29.3"
+  },
+  "engines": {
+    "node": "8.x",
+    "npm": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node bot.js"
   }
 }
