@@ -49,6 +49,7 @@ function ans_help(message) {
 }
 
 bot.on('message', async message => {
+    logger.info("i get a message");
     if (message.author.bot || message.content.indexOf(botPrefix) !== 0) return;
     var args = message.content.slice(auth.prefix.length).trim().split(/ +/g);
     var cmd = args.shift().toLowerCase();
