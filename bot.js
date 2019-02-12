@@ -137,7 +137,7 @@ async function generate_training(message) {
 
 
     for (var [weapName, msg] of weaponOrder) {
-        msg = await message.author.send(weaponSet.name);
+        msg = await message.author.send(weapName);
     }
     await gen_reaction(message, weaponOrder);
 }
