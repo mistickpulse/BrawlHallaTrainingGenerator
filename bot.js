@@ -64,7 +64,7 @@ bot.on('message', async message => {
         return;
     }
     console.log("J'arrive au check 3");
-    var args = message.content.slice(auth.prefix.length).trim().split(/ +/g);
+    var args = message.content.slice(botPrefix.length).trim().split(/ +/g);
     var cmd = args.shift().toLowerCase();
 
     console.log("J'arrive au check 4");
