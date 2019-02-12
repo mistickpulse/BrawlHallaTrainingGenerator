@@ -82,17 +82,17 @@ bot.on('message', async message => {
 async function gen_msg(message, weaponSet, idx, size) {
     weaponSet.msgslot = await message.author.send(weaponSet.name);
     if (idx > 0) {
-        weaponSet.msgslot.react('⬆');
+        await weaponSet.msgslot.react('⬆');
     }
     if (idx < size - 1) {
-        weaponSet.msgslot.react('⬇');
+        await weaponSet.msgslot.react('⬇');
     }
     if (idx > 1) {
-        weaponSet.msgslot.react('⏫');
+        await weaponSet.msgslot.react('⏫');
     }
 
     if (idx < size - 2) {
-        weaponSet.msgslot.react('⏬');
+        await weaponSet.msgslot.react('⏬');
     }
 }
 
