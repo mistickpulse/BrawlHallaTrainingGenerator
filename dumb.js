@@ -16,6 +16,7 @@ console.log("Prefix:" + process.env.PREFIX);
 client.on("message", message => {
     if (message == "ping") {
         message.channel.send("pong");
+        message.author.send("ping");
     }
 });
 

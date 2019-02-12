@@ -74,9 +74,7 @@ bot.on('message', async message => {
     }
 });
 
-
 //===================
-
 
 async function gen_msg(message, weaponSet, idx, size) {
     weaponSet.msgslot = await message.author.send(weaponSet.name);
