@@ -59,7 +59,7 @@ bot.on('message', async message => {
         return;
     }
     console.log("J'arrive au check 2");
-    if (message.content.indexOf(botPrefix) != 0) {
+    if (message.indexOf(botPrefix) != 0) {
         return;
     }
     console.log("J'arrive au check 3");
