@@ -124,13 +124,13 @@ async function generate_training(message) {
         if (idx > 0) {
             msg.react('⬆');
         }
-        if (idx < weaponOrderCollection.size - 1) {
+        if (idx < weaponOrder.size - 1) {
             msg.react('⬇');
         }
         if (idx > 1) {
             msg.react('⏫');
         }
-        if (idx < weaponOrderCollection.size - 2) {
+        if (idx < weaponOrder.size - 2) {
             msg.react('⏬');
         }
         ++idx;
