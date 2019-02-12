@@ -62,18 +62,23 @@ bot.on('message', async message => {
     switch (cmd) {
         case 'ping':
             message.channel.send("!pong");
+            break;
         case 'whoami':
             whoami(message);
             break;
         case 'trainme':
-            generate_training(message);
+            //generate_training(message);
+            message.author.send("This training generation is still under developpement so you can't have access to it right now :(\n" +
+            "the first realease of this training should be out asap :)");
             break;
         case 'help':
-            ans_help(message)
+            ans_help(message);
+            break;
+        case 'hyped':
+            generate_training(message);
         default:
             whoami(message);
             break;
-        // Just add any case commands if you want to..
     }
 });
 
@@ -101,9 +106,7 @@ async function generate_training(message) {
         message.channel.send(`Seems like you requested a training ${message.author} check your dm's ma boy 👌`);
     }
 
-    //message.author.send("This training generation is still under developpement so you can't have access to it right now :(\n" +
-    //    "the first realease of this training should be out asap :)");
-    //return ;
+
     var m = await message.author.send("Allright let's build this training plan.\n" +
         "I might need a little help to know your weapon preferences ;)\n" +
         "You can sort the list below in order to get the prefered weapon training consequently\n" +
