@@ -48,39 +48,20 @@ function ans_help(message) {
 }
 
 bot.on('message', async message => {
-    logger.info("i get a message :[" + message + "]");
-    if (message == "ping") {
-        logger.info("i ping here");
-        message.channel.send("pong");
-        return ;
-    }
-    console.log("J'arrive au check 1");
-    if (message.author.bot) {
+    if (message.author.bot || message.content.indexOf(botPrefix) !== 0) {
         return;
     }
-    console.log("J'arrive au check 2");
-
-    if (message.content.indexOf(botPrefix) !== 0) {
-        return;
-    }
-    console.log("J'arrive au check 3");
     var args = message.content.slice(botPrefix.length).trim().split(/ +/g);
     var cmd = args.shift().toLowerCase();
 
-    console.log("J'arrive au check 4");
     if (cmd.length == 0 || cmd == null) {
-        console.log("j'te drop un whoami");
-            message.channel.send(
-        '**Hi**\n' +
-        'Nice to meet you ! My name is **Zoulou** and i am a **brawlhalla personnal trainer**.\n' +
-        'I am able to build you a training plan based on your preference for you to **get better** at this game ;)\n' +
-        'Call me : \"**' + botPrefix + ' trainme**\" to begin the training <3 or use \"**' + botPrefix + ' help**\" to get any information :)'
-    );
-        //whoami(message);
+        whoami(message);
         return;
     }
 
     switch (cmd) {
+        case 'ping':
+            message.channel.send("!pong");
         case 'whoami':
             whoami(message);
             break;
@@ -90,13 +71,7 @@ bot.on('message', async message => {
         case 'help':
             ans_help(message)
         default:
-                message.channel.send(
-        '**Hi**\n' +
-        'Nice to meet you ! My name is **Zoulou** and i am a **brawlhalla personnal trainer**.\n' +
-        'I am able to build you a training plan based on your preference for you to **get better** at this game ;)\n' +
-        'Call me : \"**' + botPrefix + ' trainme**\" to begin the training <3 or use \"**' + botPrefix + ' help**\" to get any information :)'
-    );
-            //whoami(message);
+            whoami(message);
             break;
         // Just add any case commands if you want to..
     }
@@ -126,9 +101,9 @@ async function generate_training(message) {
         message.channel.send(`Seems like you requested a training ${message.author} check your dm's ma boy 👌`);
     }
 
-    message.author.send("This training generation is still under developpement so you can't have access to it right now :(\n" +
-        "the first realease of this training should be out asap :)");
-    return ;
+    //message.author.send("This training generation is still under developpement so you can't have access to it right now :(\n" +
+    //    "the first realease of this training should be out asap :)");
+    //return ;
     var m = await message.author.send("Allright let's build this training plan.\n" +
         "I might need a little help to know your weapon preferences ;)\n" +
         "You can sort the list below in order to get the prefered weapon training consequently\n" +
