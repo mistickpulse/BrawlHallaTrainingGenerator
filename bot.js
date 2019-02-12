@@ -91,13 +91,13 @@ async function gen_reaction(message, weaponOrderCollection) {
         if (idx > 0) {
             await msg.react('⬆');
         }
-        if (idx < size - 1) {
+        if (idx < weaponOrderCollection.size - 1) {
             await msg.react('⬇');
         }
         if (idx > 1) {
             await msg.react('⏫');
         }
-        if (idx < size - 2) {
+        if (idx < weaponOrderCollection.size - 2) {
             await msg.react('⏬');
         }
         ++idx;
