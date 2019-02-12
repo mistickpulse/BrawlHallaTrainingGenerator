@@ -37,7 +37,6 @@ function whoami(message) {
 }
 
 function ans_help(message) {
-
     message.channel.send('Oh you got trouble using me ? Let me explain.\n' +
         'First of all, the prefix to invok me is !ztr\n' +
         'Here is the command list that you can use :\n\n' +
