@@ -85,20 +85,20 @@ bot.on('message', async message => {
 
 //===================
 
-async function gen_reaction(message, weaponOrderCollection) {
+function gen_reaction(message, weaponOrderCollection) {
     var idx = 0;
     for (var [weapName, msg] of weaponOrderCollection) {
         if (idx > 0) {
-            await msg.react('⬆');
+            msg.react('⬆');
         }
         if (idx < weaponOrderCollection.size - 1) {
-            await msg.react('⬇');
+            msg.react('⬇');
         }
         if (idx > 1) {
-            await msg.react('⏫');
+            msg.react('⏫');
         }
         if (idx < weaponOrderCollection.size - 2) {
-            await msg.react('⏬');
+            msg.react('⏬');
         }
         ++idx;
     }
@@ -139,7 +139,7 @@ async function generate_training(message) {
     for (var [weapName, msg] of weaponOrder) {
         msg = await message.author.send(weapName);
     }
-    await gen_reaction(message, weaponOrder);
+    gen_reaction(message, weaponOrder);
 }
 
 bot.login(process.env.TOKEN);
