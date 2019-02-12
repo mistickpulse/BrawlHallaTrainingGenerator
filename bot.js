@@ -59,7 +59,14 @@ bot.on('message', async message => {
     var cmd = args.shift().toLowerCase();
 
     if (cmd.length == 0 || cmd == null) {
-        whoami(message);
+        console.log("j'te drop un whoami");
+            message.channel.send(
+        '**Hi**\n' +
+        'Nice to meet you ! My name is **Zoulou** and i am a **brawlhalla personnal trainer**.\n' +
+        'I am able to build you a training plan based on your preference for you to **get better** at this game ;)\n' +
+        'Call me : \"**' + botPrefix + ' trainme**\" to begin the training <3 or use \"**' + botPrefix + ' help**\" to get any information :)'
+    );
+        //whoami(message);
         return;
     }
 
@@ -73,7 +80,13 @@ bot.on('message', async message => {
         case 'help':
             ans_help(message)
         default:
-            whoami(message);
+                message.channel.send(
+        '**Hi**\n' +
+        'Nice to meet you ! My name is **Zoulou** and i am a **brawlhalla personnal trainer**.\n' +
+        'I am able to build you a training plan based on your preference for you to **get better** at this game ;)\n' +
+        'Call me : \"**' + botPrefix + ' trainme**\" to begin the training <3 or use \"**' + botPrefix + ' help**\" to get any information :)'
+    );
+            //whoami(message);
             break;
         // Just add any case commands if you want to..
     }
