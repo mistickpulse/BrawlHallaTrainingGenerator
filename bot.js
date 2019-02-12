@@ -86,22 +86,6 @@ bot.on('message', async message => {
 //===================
 
 function gen_reaction(message, weaponOrderCollection) {
-    var idx = 0;
-    for (var [weapName, msg] of weaponOrderCollection) {
-        if (idx > 0) {
-            msg.react('⬆');
-        }
-        if (idx < weaponOrderCollection.size - 1) {
-            msg.react('⬇');
-        }
-        if (idx > 1) {
-            msg.react('⏫');
-        }
-        if (idx < weaponOrderCollection.size - 2) {
-            msg.react('⏬');
-        }
-        ++idx;
-    }
 }
 
 async function generate_training(message) {
@@ -116,8 +100,6 @@ async function generate_training(message) {
         "**(this might take a little while to generate the choices so be patients <3)**\n" +
         "=======================" +
         "**validate here when it's done**\n");
-    m.react('☑');
-    m = null;
 
     var weaponOrder = new Map();
 
@@ -136,10 +118,26 @@ async function generate_training(message) {
     weaponOrder.set("Blasters", null);
 
 
+    var idx = 0;
     for (var [weapName, msg] of weaponOrder) {
         msg = await message.author.send(weapName);
+        if (idx > 0) {
+            msg.react('⬆');
+        }
+        if (idx < weaponOrderCollection.size - 1) {
+            msg.react('⬇');
+        }
+        if (idx > 1) {
+            msg.react('⏫');
+        }
+        if (idx < weaponOrderCollection.size - 2) {
+            msg.react('⏬');
+        }
+        ++idx;
     }
     gen_reaction(message, weaponOrder);
+    m.react('☑');
+    m = null;
 }
 
 bot.login(process.env.TOKEN);
