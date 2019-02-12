@@ -76,6 +76,7 @@ bot.on('message', async message => {
             break;
         case 'hyped':
             generate_training(message);
+            break;
         default:
             whoami(message);
             break;
