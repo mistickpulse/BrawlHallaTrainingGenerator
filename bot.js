@@ -85,7 +85,7 @@ bot.on('message', async message => {
 
 //===================
 
-function gen_reaction(message, weaponOrderCollection) {
+async function gen_reaction(message, weaponOrderCollection) {
     var idx = 0;
     for (var [weapName, msg] of weaponOrderCollection) {
         if (idx > 0) {
@@ -136,11 +136,10 @@ async function generate_training(message) {
     weaponOrder.set("Blasters", null);
 
 
-    var i = 0;
     for (var [weapName, msg] of weaponOrder) {
         msg = await message.author.send(weaponSet.name);
     }
-    gen_reaction(message, weaponOrder);
+    await gen_reaction(message, weaponOrder);
 }
 
 bot.login(process.env.TOKEN);
