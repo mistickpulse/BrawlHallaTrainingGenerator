@@ -55,12 +55,18 @@ bot.on('message', async message => {
         return ;
     }
     console.log("J'arrive au check 1");
-    if (message.author.bot || message.content.indexOf(botPrefix) !== 0) return;
+    if (message.author.bot) {
+        return;
+    }
     console.log("J'arrive au check 2");
+    if (message.content.indexOf(botPrefix) !== 0) {
+        return;
+    }
+    console.log("J'arrive au check 3");
     var args = message.content.slice(auth.prefix.length).trim().split(/ +/g);
     var cmd = args.shift().toLowerCase();
 
-    console.log("J'arrive au check 3");
+    console.log("J'arrive au check 4");
     if (cmd.length == 0 || cmd == null) {
         console.log("j'te drop un whoami");
             message.channel.send(
