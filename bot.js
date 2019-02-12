@@ -59,8 +59,9 @@ bot.on('message', async message => {
         return;
     }
     console.log("J'arrive au check 2");
-    if (message.indexOf(botPrefix) != 0) {
-        return;
+    if (message.content.indexOf(process.env.PREFIX) == -1) {
+        console.log("prefix non present j'me taille");
+        return ;
     }
     console.log("J'arrive au check 3");
     var args = message.content.slice(auth.prefix.length).trim().split(/ +/g);
