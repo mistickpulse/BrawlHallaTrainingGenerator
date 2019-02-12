@@ -52,8 +52,8 @@ bot.on('message', async message => {
     if (message == "ping") {
         logger.info("i ping here");
         message.channel.send("pong");
+        return ;
     }
-    return ;
     if (message.author.bot || message.content.indexOf(botPrefix) !== 0) return;
     var args = message.content.slice(auth.prefix.length).trim().split(/ +/g);
     var cmd = args.shift().toLowerCase();
