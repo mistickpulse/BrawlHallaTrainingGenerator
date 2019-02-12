@@ -14,7 +14,9 @@ console.log("Prefix:" + process.env.PREFIX);
 });
 
 client.on("message", message => {
-    message.channel.send(message);
+    if (message == "ping") {
+        message.channel.send("pong");
+    }
 });
 
 // There's zero need to put something here. Discord.js uses process.env.CLIENT_TOKEN if it's available,
