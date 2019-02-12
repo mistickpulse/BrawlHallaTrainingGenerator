@@ -9,6 +9,8 @@ const client = new Discord.Client({
 
 client.on("ready", () => {
     console.log("I am ready!");
+console.log("Token :" + process.env.TOKEN);
+console.log("Prefix:" + process.env.PREFIX);
 });
 
 client.on("message", message => {
