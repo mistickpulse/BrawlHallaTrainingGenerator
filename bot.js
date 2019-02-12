@@ -85,20 +85,22 @@ bot.on('message', async message => {
 
 //===================
 
-async function gen_msg(message, weaponSet, idx, size) {
-    weaponSet.msgslot = await message.author.send(weaponSet.name);
-    if (idx > 0) {
-        await weaponSet.msgslot.react('⬆');
-    }
-    if (idx < size - 1) {
-        await weaponSet.msgslot.react('⬇');
-    }
-    if (idx > 1) {
-        await weaponSet.msgslot.react('⏫');
-    }
-
-    if (idx < size - 2) {
-        await weaponSet.msgslot.react('⏬');
+function gen_reaction(message, weaponOrderCollection) {
+    var idx = 0;
+    for (var [weapName, msg] of weaponOrderCollection) {
+        if (idx > 0) {
+            await msg.react('⬆');
+        }
+        if (idx < size - 1) {
+            await msg.react('⬇');
+        }
+        if (idx > 1) {
+            await msg.react('⏫');
+        }
+        if (idx < size - 2) {
+            await msg.react('⏬');
+        }
+        ++idx;
     }
 }
 
@@ -117,10 +119,6 @@ async function generate_training(message) {
     m.react('☑');
     m = null;
 
-    var tmp = {
-        name: null,
-        msgslot : null
-    };
     var weaponOrder = new Map();
 
     weaponOrder.set("Sword", null);
@@ -140,11 +138,9 @@ async function generate_training(message) {
 
     var i = 0;
     for (var [weapName, msg] of weaponOrder) {
-        tmp.name = weapName;
-        tmp.msgslot = null;
-        await gen_msg(message, tmp, i++, weaponOrder.size);
-        msg = tmp.msgslot;
+        msg = await message.author.send(weaponSet.name);
     }
+    gen_reaction(message, weaponOrder);
 }
 
 bot.login(process.env.TOKEN);
