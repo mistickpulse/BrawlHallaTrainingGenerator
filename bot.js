@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 var logger = require('winston');
 require('dotenv').config();
 
-var botPrefix = process.env.PREFIX;
+var botPrefix = "!ztr";
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -59,9 +59,9 @@ bot.on('message', async message => {
         return;
     }
     console.log("J'arrive au check 2");
-    if (message.content.indexOf(process.env.PREFIX) == -1) {
-        console.log("prefix non present j'me taille");
-        return ;
+
+    if (message.content.indexOf(botPrefix) !== 0) {
+        return;
     }
     console.log("J'arrive au check 3");
     var args = message.content.slice(auth.prefix.length).trim().split(/ +/g);
