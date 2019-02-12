@@ -1,1 +1,1 @@
-worker: node dumb.js
+worker: node bot.js
