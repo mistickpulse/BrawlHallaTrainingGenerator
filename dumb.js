@@ -1,7 +1,11 @@
 // This line MUST be first, for discord.js to read the process envs!
 require('dotenv').config();
 const Discord = require("discord.js");
-const client = new Discord.Client();
+
+const client = new Discord.Client({
+    token: process.env.TOKEN,
+    autorun: true
+});
 
 client.on("ready", () => {
     console.log("I am ready!");
@@ -9,6 +13,7 @@ client.on("ready", () => {
 
 client.on("message", message => {
     if (message.author.bot) return;
+    console.log("i get the msg");
 // The process.env.PREFIX is your bot's prefix in this case.
 if (message.content.indexOf(process.env.PREFIX) !== 0) return;
 
@@ -27,4 +32,4 @@ if (command === 'blah') {
 
 // There's zero need to put something here. Discord.js uses process.env.CLIENT_TOKEN if it's available,
 // and this is what is being used here. If on discord.js v12, it's DISCORD_TOKEN
-client.login();
+client.login(process.env.TOKEN);
