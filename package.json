@@ -2,7 +2,7 @@
   "name": "zoulou",
   "version": "1.0.0",
   "description": "My own Discord bot",
-  "main": "bot.js",
+  "main": "dumb.js",
   "author": "SZ * zouz",
   "dependencies": {
     "@types/node": "10.12.24",

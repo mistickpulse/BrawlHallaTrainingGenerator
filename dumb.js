@@ -14,22 +14,7 @@ console.log("Prefix:" + process.env.PREFIX);
 });
 
 client.on("message", message => {
-    if (message.author.bot) return;
-    console.log("i get the msg");
-// The process.env.PREFIX is your bot's prefix in this case.
-if (message.content.indexOf(process.env.PREFIX) !== 0) return;
-
-// This is the usual argument parsing we love to use.
-const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
-const command = args.shift().toLowerCase();
-
-// And our 2 real basic commands!
-if(command === 'ping') {
-    message.channel.send('Pong!');
-} else
-if (command === 'blah') {
-    message.channel.send('Meh.');
-}
+    message.channel.send(message);
 });
 
 // There's zero need to put something here. Discord.js uses process.env.CLIENT_TOKEN if it's available,
