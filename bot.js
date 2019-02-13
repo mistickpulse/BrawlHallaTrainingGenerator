@@ -1,4 +1,5 @@
 const Discord = require("discord.js");
+const fs = require('fs');
 var logger = require('winston');
 require('dotenv').config();
 
@@ -16,129 +17,64 @@ const bot = new Discord.Client({
     autorun: true
 });
 
-require('http').createServer().listen(3000);
+bot.commands = new Discord.Collection();
+const commandFiles = fs.readdirSync('./Commands').filter(file => file.endsWith('.js'));
+
+
+//require('http').createServer().listen(3000);
 
 bot.on('ready', () => {
+    bot.user.setActivity("!ztr");
+    logger.info("========== Login Informations =========");
     logger.info('Connected');
-logger.info('Logged in as: ');
-logger.info(bot.username + ' - (' + bot.id + ')');
-bot.user.setActivity("!ztr");
-})
-;
-
-// Basic Answers
-function whoami(message) {
-    message.channel.send(
-        '**Hi**\n' +
-        'Nice to meet you ! My name is **Zoulou** and i am a **brawlhalla personnal trainer**.\n' +
-        'I am able to build you a training plan based on your preference for you to **get better** at this game ;)\n' +
-        'Call me : \"**' + botPrefix + ' trainme**\" to begin the training <3 or use \"**' + botPrefix + ' help**\" to get any information :)'
-    );
-}
-
-function ans_help(message) {
-    message.channel.send('Oh you got trouble using me ? Let me explain.\n' +
-        'First of all, the prefix to invok me is !ztr\n' +
-        'Here is the command list that you can use :\n\n' +
-        '======================================\n\n' +
-        ' * **!ztr whoami:    A quick presentation of me, Zoulou**\n' +
-        ' * **!ztr help:      Open this menu**\n' +
-        ' * **!ztr trainme:   Ill slide in your dm to build you a personnal training program <3**\n'
-    );
-}
+    logger.info('Logged in as: ' + bot.user.username);
+    logger.info("=====================");
+    logger.info("-- Loading Commands :");
+    for (const file of commandFiles) {
+        const command = require(`./Commands/${file}`);
+        if (command.name != undefined && command.name != null) {
+            logger.info("     " + file + " -> " + command.name + " : loaded");
+        }
+        else {
+            logger.error("/!\\  " + file + " -> ERROR" );
+            continue;
+        }
+        bot.commands.set(command.name, command);
+    }
+});
 
 bot.on('message', async message => {
     if (message.author.bot || message.content.indexOf(botPrefix) !== 0) {
         return;
     }
     var args = message.content.slice(botPrefix.length).trim().split(/ +/g);
-    var cmd = args.shift().toLowerCase();
+    var cmdName = args.shift().toLowerCase();
 
-    if (cmd.length == 0 || cmd == null) {
-        whoami(message);
-        return;
+    if (!bot.commands.has(cmdName)) {
+        bot.commands.get('whoami').execute(message, args);
+        return ;
     }
 
-    switch (cmd) {
-        case 'ping':
-            message.channel.send("!pong");
-            break;
-        case 'whoami':
-            whoami(message);
-            break;
-        case 'trainme':
-            //generate_training(message);
-            message.author.send("This training generation is still under developpement so you can't have access to it right now :(\n" +
-            "the first realease of this training should be out asap :)");
-            break;
-        case 'help':
-            ans_help(message);
-            break;
-        case 'hyped':
-            generate_training(message);
-            break;
-        default:
-            whoami(message);
-            break;
+    const command = bot.commands.get(cmdName);
+    if (args.length < command.argument) {
+        message.reply("unfortunately you have give the wrong quantity of argument\n" +
+            "I am not able to work with that :(.");
+        return ;
+    }
+    try {
+        command.execute(message, args);
+    }
+    catch (error) {
+        logger.error(error);
+        message.reply("Something has gone wrong through the execution of this command, sorry :(");
     }
 });
 
-//===================
+bot.on('messageReactionAdd', (reaction, user) => {
+    if (!reaction.message.author.bot) return ;
+    logger.info("Starting Reaction");
+});
 
-function gen_reaction(message, weaponOrderCollection) {
-}
-
-async function generate_training(message) {
-    if (message.channel != message.author.dmChannel) {
-        message.channel.send(`Seems like you requested a training ${message.author} check your dm's ma boy 👌`);
-    }
-
-
-    var m = await message.author.send("Allright let's build this training plan.\n" +
-        "I might need a little help to know your weapon preferences ;)\n" +
-        "You can sort the list below in order to get the prefered weapon training consequently\n" +
-        "**(this might take a little while to generate the choices so be patients <3)**\n" +
-        "=======================" +
-        "**validate here when it's done**\n");
-
-    var weaponOrder = new Map();
-
-    weaponOrder.set("Sword", null);
-    weaponOrder.set("Cannon", null);
-    weaponOrder.set("Katars", null);
-    weaponOrder.set("Cannon", null);
-    weaponOrder.set("Scythe", null);
-    weaponOrder.set("Rocket Lance", null);
-    weaponOrder.set("Spear", null);
-    weaponOrder.set("Gauntlet", null);
-    weaponOrder.set("Axe", null);
-    weaponOrder.set("Bow", null);
-    weaponOrder.set("Orb", null);
-    weaponOrder.set("Hammer", null);
-    weaponOrder.set("Blasters", null);
-
-
-    var idx = 0;
-    for (var [weapName, msg] of weaponOrder) {
-        msg = await message.author.send(weapName);
-        if (idx > 0) {
-            msg.react('⬆');
-        }
-        if (idx < weaponOrder.size - 1) {
-            msg.react('⬇');
-        }
-        if (idx > 1) {
-            msg.react('⏫');
-        }
-        if (idx < weaponOrder.size - 2) {
-            msg.react('⏬');
-        }
-        ++idx;
-    }
-    gen_reaction(message, weaponOrder);
-    m.react('☑');
-    m = null;
-}
 
 bot.login(process.env.TOKEN);
 
